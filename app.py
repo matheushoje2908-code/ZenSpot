@@ -1,8 +1,8 @@
-from flask import Flask, render_template_string
+from flask import Flask
 
 app = Flask(__name__)
 
-# CSS UNIFICADO: Mantive o Menu perfeito e alinhei o Login
+# CSS UNIFICADO: Design Neon ZenSpot
 STYLE = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
@@ -33,12 +33,11 @@ STYLE = """
         overflow: hidden;
     }
 
-    /* --- CORREÇÃO DO LOGIN (PARA NÃO FICAR TORTO) --- */
     .login-container {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centraliza horizontalmente */
-        justify-content: center; /* Centraliza verticalmente */
+        align-items: center;
+        justify-content: center;
         height: 100%;
         text-align: center;
     }
@@ -67,9 +66,9 @@ STYLE = """
         margin-top: 20px;
         text-transform: uppercase;
         display: block;
+        text-align: center;
     }
 
-    /* --- SEGUNDA PARTE (MENU) - NÃO MEXI, ESTÁ COMO VOCÊ GOSTOU --- */
     .asymmetric-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -94,7 +93,6 @@ STYLE = """
     .item-tall { grid-row: span 2; height: 215px; flex-direction: column; }
     .item-normal { height: 100px; }
 
-    /* --- PÁGINAS DE INFORMAÇÃO --- */
     .content-card {
         background: rgba(255,255,255,0.07);
         padding: 25px;
@@ -119,17 +117,14 @@ def login_page():
         <div class="login-container">
             <h1 class="logo-text">ZenSpot</h1>
             <p class="welcome-text">BEM-VINDO</p>
-            
             <div class="input-wrapper">
                 <span class="label-mini">USUÁRIO</span>
                 <input type="text" class="input-field">
             </div>
-            
             <div class="input-wrapper">
                 <span class="label-mini">SENHA</span>
                 <input type="password" class="input-field">
             </div>
-            
             <a href="/menu" class="btn-login">ENTRAR</a>
         </div>
     </div>
@@ -154,16 +149,14 @@ def menu_page():
 
 @app.route('/info/<tipo>')
 def info_page(tipo):
-    # Conteúdo para cada botão
     conteudo = {
-        "psiquiatras": ["PSIQUIATRAS", "Especialistas médicos focados no diagnóstico e tratamento de transtornos mentais complexos, utilizando abordagem clínica e farmacológica.", "https://pt.wikipedia.org/wiki/Psiquiatria"],
-        "psicologos": ["PSICÓLOGOS", "Profissionais que utilizam a psicoterapia para ajudar a compreender sentimentos, comportamentos e promover saúde mental através do diálogo.", "https://pt.wikipedia.org/wiki/Psicologia"],
-        "receitas": ["RECEITAS", "Acesso rápido ao seu histórico de prescrições médicas. Lembre-se: nunca se automedique e siga as orientações do seu médico.", "https://pt.wikipedia.org/wiki/Receita_m%C3%A9dica"],
-        "farmacias": ["FARMÁCIAS", "Encontre redes de farmácias parceiras com descontos exclusivos para usuários do ZenSpot.", "https://pt.wikipedia.org/wiki/Farm%C3%A1cia"],
-        "medicos": ["MÉDICOS", "Além da saúde mental, tenha acesso a clínicos gerais e outras especialidades para um check-up completo do seu corpo.", "https://pt.wikipedia.org/wiki/Medicina"],
-        "suporte": ["SUPORTE 24H", "Estamos aqui para você a qualquer hora. Clique no link para falar com nossa central de acolhimento humanizado.", "https://www.cvv.org.br/"]
+        "psiquiatras": ["PSIQUIATRAS", "Especialistas médicos focados no diagnóstico e tratamento de transtornos mentais.", "https://pt.wikipedia.org/wiki/Psiquiatria"],
+        "psicologos": ["PSICÓLOGOS", "Profissionais que utilizam a psicoterapia para promover saúde mental.", "https://pt.wikipedia.org/wiki/Psicologia"],
+        "receitas": ["RECEITAS", "Acesso rápido ao seu histórico de prescrições médicas oficiais.", "https://pt.wikipedia.org/wiki/Receita_m%C3%A9dica"],
+        "farmacias": ["FARMÁCIAS", "Encontre redes de farmácias parceiras com descontos exclusivos.", "https://pt.wikipedia.org/wiki/Farm%C3%A1cia"],
+        "medicos": ["MÉDICOS", "Acesso a clínicos gerais e outras especialidades para check-up.", "https://pt.wikipedia.org/wiki/Medicina"],
+        "suporte": ["SUPORTE 24H", "Estamos aqui para você a qualquer hora. Central humanizada.", "https://www.cvv.org.br/"]
     }
-    
     item = conteudo.get(tipo, ["ERRO", "Página não encontrada", "#"])
     
     return STYLE + f"""
@@ -172,11 +165,10 @@ def info_page(tipo):
         <div class="content-card">
             <p>{item[1]}</p>
         </div>
-        <a href="{item[2]}" target="_blank" class="wiki-btn">Saber mais (Wikipedia) →</a>
+        <a href="{item[2]}" target="_blank" class="wiki-btn">Saber mais →</a>
         <a href="/menu" class="btn-login" style="background:none; border:1px solid #CCFF00; color:#CCFF00; margin-top:auto;">VOLTAR AO MENU</a>
     </div>
     """
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
     app.run(host='0.0.0.0', port=10000)
